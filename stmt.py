@@ -10,7 +10,7 @@ class printStmt():
         self.expression = expression 
 
     def evaluate(self):
-        interpreter.eval_printStmt(self.expression)
+        interpreter.eval_printStmt(self)
 
 
     
@@ -19,7 +19,7 @@ class exprStmt():
         self.expression = expression 
 
     def evaluate(self):
-        interpreter.eval_exprStmt(self.expression)
+        interpreter.eval_exprStmt(self)
 
 
 class varStmt():
@@ -28,4 +28,4 @@ class varStmt():
         self.expr = expr
 
     def evaluate(self):
-        interpreter.eval_varStmt(self.name, self.expr) 
+        interpreter.eval_varStmt(self) 

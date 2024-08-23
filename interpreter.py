@@ -15,17 +15,17 @@ class Interpreter():
 
 # stmt funcs
 
-def eval_printStmt(expression):
-    val = expression.visit()
+def eval_printStmt(printStmt):
+    val = printStmt.expression.visit()
     print(val)
 
-def eval_exprStmt(expression):
-    return expression.visit()
+def eval_exprStmt(exprStmt):
+    return exprStmt.visit()
 
  
-def eval_varStmt(name, eqExpr):
-    val = eqExpr.visit()
-    env.define(name, val)
+def eval_varStmt(varStmt):
+    val = varStmt.expr.visit()
+    env.define(varStmt.name, val)
 
 # expr funcs
 
