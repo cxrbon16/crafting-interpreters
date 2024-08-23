@@ -10,7 +10,6 @@ class Interpreter():
     def interpret(self):
         for stmt in self.stmt_list:
             stmt.evaluate()
-        print(env.values)
 
 
 # stmt funcs

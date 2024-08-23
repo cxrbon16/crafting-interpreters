@@ -1,1 +1,5 @@
-13 - 10 - 12 
+var Ind = 13;
+var newInd = 15 * 13;
+print("hello world");
+print(Ind + newInd * 3);
+

@@ -13,7 +13,7 @@ def main():
     command = sys.argv[1]
     filename = sys.argv[2]
 
-    if command != "parse":
+    if command != "plox":
         print(f"Unknown command: {command}", file=sys.stderr)
         exit(1)
 
@@ -23,13 +23,8 @@ def main():
         scanner.tokenize()
         parser = Parser(scanner.token_list)
         interpreter = Interpreter(parser.parse())        
-        if scanner.tokenize():
-            scanner.print_token_list()
-            interpreter.interpret()
-            exit(0)
-        else:
-            scanner.print_token_list()
-            exit(65)
+        interpreter.interpret()
+
 
 if __name__ == "__main__":
     main()
