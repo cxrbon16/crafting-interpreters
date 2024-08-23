@@ -1,6 +1,6 @@
-from expr import Binary, Grouping,  Literal, Token, Unary, Variable
+from expr import Binary, Literal, Unary, Variable
 from scanner import TokenType 
-from stmt import Stmt, Var, printStmt, exprStmt
+from stmt import varStmt, printStmt, exprStmt
 
 
 
@@ -75,7 +75,7 @@ class Parser():
         if (self.match([TokenType.EQUAL])):
            initializer = self.expression()
 
-        return Var(identifier, initializer)
+        return varStmt(identifier, initializer)
 
     def statement(self):
         if (self.match([TokenType.PRINT])):

@@ -1,3 +1,6 @@
+import interpreter
+
+
 class Stmt():
     def __init__(self):
         pass
@@ -7,9 +10,7 @@ class printStmt():
         self.expression = expression 
 
     def evaluate(self):
-        val = self.expression.visit()
-        print(val)
-
+        interpreter.eval_printStmt(self.expression)
 
 
     
@@ -18,14 +19,13 @@ class exprStmt():
         self.expression = expression 
 
     def evaluate(self):
-        val = self.expression.visit()
-        return val
+        interpreter.eval_exprStmt(self.expression)
 
 
-
-class Var():
+class varStmt():
     def __init__(self, name, val):
         self.name = name
         self.val = val
-    def evaluate():
-        
+
+    def evaluate(self):
+        interpreter.eval_varStmt(self.name, self.val) 
