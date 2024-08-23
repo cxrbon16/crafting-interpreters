@@ -23,9 +23,9 @@ class exprStmt():
 
 
 class varStmt():
-    def __init__(self, name, val):
+    def __init__(self, name, expr):
         self.name = name
-        self.val = val
+        self.expr = expr
 
     def evaluate(self):
-        interpreter.eval_varStmt(self.name, self.val) 
+        interpreter.eval_varStmt(self.name, self.expr) 

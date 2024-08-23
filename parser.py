@@ -10,15 +10,6 @@ class Parser():
         self.token_list = token_list
         self.current = 0
 
-
- # 
- #    def try_parse(self):
- #        try:
- #            return self.expression()
- #        except Exception as e:
- #            raise e
-
-
 # start: util functions 
             
     def match(self, types):
@@ -42,13 +33,12 @@ class Parser():
 
     def consume(self, t):
         if(self.check(t)):
+
             self.advance()
-            return 
+            return self.token_list[self.current - 1]
         print(f"{self.token_list[self.current].type} has found" )
         self.advance()
-        print("Errror")
-        return 
-
+        raise Exception("We have an error")
 # end: util functions
 
     def parse(self):
@@ -59,7 +49,7 @@ class Parser():
 
         l_of_dec = []
         while(not self.is_at_end()):
-            l_of_dec.append(self.statement())
+            l_of_dec.append(self.declaration())
         return l_of_dec 
 
     def declaration(self):
@@ -69,12 +59,11 @@ class Parser():
             return self.statement()
 
     def var_declaration(self):
-        identifier = self.consume(TokenType.IDENTIFIER)
+        identifier = self.consume(TokenType.IDENTIFIER).lexeme
         initializer = None
-        self.advance()
         if (self.match([TokenType.EQUAL])):
            initializer = self.expression()
-
+        self.consume(TokenType.SEMICOLON)
         return varStmt(identifier, initializer)
 
     def statement(self):
@@ -158,7 +147,7 @@ class Parser():
             return expr
 
         if self.match([TokenType.IDENTIFIER]):
-            return Variable(self.token_list[self.current - 1].literal)  
+            return Variable(self.token_list[self.current - 1].lexeme)  
 
         if self.match([TokenType.NUMBER, TokenType.STRING]):
             return Literal(self.token_list[self.current - 1].literal)

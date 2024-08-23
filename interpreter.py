@@ -10,6 +10,7 @@ class Interpreter():
     def interpret(self):
         for stmt in self.stmt_list:
             stmt.evaluate()
+        print(env.values)
 
 
 # stmt funcs
@@ -22,13 +23,14 @@ def eval_exprStmt(expression):
     return expression.visit()
 
  
-def eval_varStmt(name, val):
+def eval_varStmt(name, eqExpr):
+    val = eqExpr.visit()
     env.define(name, val)
 
 # expr funcs
 
 def visitVariable(varExpr):
-    return env.get(varExpr.name)
+    return env.get(varExpr.token_name)
 
 
 def visitUnary(unaryExpr):
