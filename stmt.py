@@ -9,17 +9,22 @@ class printStmt():
     def __init__(self, expression):
         self.expression = expression 
 
-    def evaluate(self):
-        interpreter.eval_printStmt(self)
+    def evaluate(self, interpreterC):
+        interpreterC.eval_printStmt(self)
 
+class blockStmt():
+    def __init__(self, stmts) -> None:
+        self.statements = stmts
+   
 
-    
+    def evaluate(self, interpreterC):
+        return interpreterC.eval_blockStmt(self)
 class exprStmt():
     def __init__(self, expression):
         self.expression = expression 
 
-    def evaluate(self):
-        interpreter.eval_exprStmt(self)
+    def evaluate(self, interpreterC):
+        interpreterC.eval_exprStmt(self)
 
 
 class varStmt():
@@ -27,5 +32,5 @@ class varStmt():
         self.name = name
         self.expr = expr
 
-    def evaluate(self):
-        interpreter.eval_varStmt(self) 
+    def evaluate(self, interpreterC):
+        interpreterC.eval_varStmt(self) 

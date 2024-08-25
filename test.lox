@@ -1,3 +1,7 @@
 var ab = 15;
-ab = ab + 3 + 3;
+var ac = "hello world!";
+{
+  ac = ab;
+}
+ab = ac;
 print ab;

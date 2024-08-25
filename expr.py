@@ -19,16 +19,16 @@ class Variable(Expr):
     def __init__(self, token_name):
         self.token_name = token_name
     
-    def visit(self):
-        return interpreter.visitVariable(self) 
+    def visit(self, interpreterC):
+        return interpreterC.visitVariable(self) 
 
 class Assignment(Expr):
     def __init__(self, name, val):
         self.lvalue = name
         self.rvalue = val 
 
-    def visit(self):
-        return interpreter.visitAssignment(self)
+    def visit(self, interpreterC):
+        return interpreterC.visitAssignment(self)
 
 class Binary(Expr):
     def  __init__(self, left, right, operator: Token):
@@ -36,28 +36,28 @@ class Binary(Expr):
         self.right= right
         self.operator = operator
 
-    def visit(self):
-       return interpreter.visitBinary(self) 
+    def visit(self, interpreterC):
+       return interpreterC.visitBinary(self) 
 
 class Unary(Expr):
     def __init__(self, operator: Token, expr):
         self.operator: Token = operator
         self.expr = expr 
 
-    def visit(self):
-        return interpreter.visitUnary(self)
+    def visit(self, interpreterC):
+        return interpreterC.visitUnary(self)
 
 class Grouping(Expr):
     def __init__(self, expr):
         self.expr = expr
 
-    def visit(self):
-        return interpreter.visitGrouping(self)
+    def visit(self, interpreterC):
+        return interpreterC.visitGrouping(self)
 
 class Literal(Expr):
     def __init__(self, val):
         self.value = val
 
-    def visit(self):
-        return interpreter.visitLiteral(self)
+    def visit(self, interpreterC):
+        return interpreterC.visitLiteral(self)
 

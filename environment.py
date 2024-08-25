@@ -1,6 +1,7 @@
 class Environment():
-    def __init__(self):
+    def __init__(self, enclosing):
         self.values = {}
+        self.enclosing = enclosing
 
     def define(self, name, val):
 
@@ -11,6 +12,9 @@ class Environment():
         if name in self.values:
             self.values[name] = val
         else:
+            if self.enclosing:
+                self.enclosing.assign(name, val)
+            return 
             raise Exception(f"undefined variable: {name}")
 
 
@@ -18,5 +22,8 @@ class Environment():
         if name in self.values:
             return self.values[name]
         else:
-            raise Exception(f"undefined variable: {name}")
+            if self.enclosing:
+                return self.enclosing.get(name)
+            else:
+                raise Exception(f"undefined variable: {name}")
         
