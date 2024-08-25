@@ -19,7 +19,7 @@ def eval_printStmt(printStmt):
     print(val)
 
 def eval_exprStmt(exprStmt):
-    return exprStmt.visit()
+    return exprStmt.expression.visit()
 
  
 def eval_varStmt(varStmt):
@@ -31,6 +31,11 @@ def eval_varStmt(varStmt):
 def visitVariable(varExpr):
     return env.get(varExpr.token_name)
 
+def visitAssignment(assignExpr):
+    name = assignExpr.lvalue
+    val = assignExpr.rvalue.visit()
+    env.assign(name, val)
+    return val
 
 def visitUnary(unaryExpr):
         def isTrue(object):

@@ -1,7 +1,6 @@
 import sys
 from parser import Parser
 from scanner import  Scanner
-from expr import Expr
 from interpreter import Interpreter
 
 def main():

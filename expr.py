@@ -22,10 +22,16 @@ class Variable(Expr):
     def visit(self):
         return interpreter.visitVariable(self) 
 
-        
+class Assignment(Expr):
+    def __init__(self, name, val):
+        self.lvalue = name
+        self.rvalue = val 
+
+    def visit(self):
+        return interpreter.visitAssignment(self)
 
 class Binary(Expr):
-    def __init__(self, left, right, operator: Token):
+    def  __init__(self, left, right, operator: Token):
         self.left = left
         self.right= right
         self.operator = operator

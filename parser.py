@@ -1,4 +1,4 @@
-from expr import Binary, Literal, Unary, Variable
+from expr import Assignment, Binary, Literal, Unary, Variable
 from scanner import TokenType 
 from stmt import varStmt, printStmt, exprStmt
 
@@ -33,12 +33,13 @@ class Parser():
 
     def consume(self, t):
         if(self.check(t)):
-
             self.advance()
             return self.token_list[self.current - 1]
+
         print(f"{self.token_list[self.current].type} has found" )
         self.advance()
         raise Exception("We have an error")
+
 # end: util functions
 
     def parse(self):
@@ -48,9 +49,14 @@ class Parser():
 
 
         l_of_dec = []
+
         while(not self.is_at_end()):
             l_of_dec.append(self.declaration())
+
         return l_of_dec 
+
+
+#statements
 
     def declaration(self):
         if (self.match([TokenType.VAR])):
@@ -82,9 +88,20 @@ class Parser():
         self.consume(TokenType.SEMICOLON)
         return exprStmt(expr)
 
+#expressions
 
     def expression(self):
-        return self.equality()
+        return self.assignment()
+
+    def assignment(self):
+        expr = self.equality()
+        if (self.match([TokenType.EQUAL])):
+            val = self.assignment()
+            if (isinstance(expr, Variable)):
+               name = expr.token_name
+               return Assignment(name, val)
+
+        return expr
 
     def equality(self):
 

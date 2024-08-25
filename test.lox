@@ -1,5 +1,3 @@
-var Ind = 13;
-var newInd = 15 * 13;
-print("hello world");
-print(Ind + newInd * 3);
-
+var ab = 15;
+ab = ab + 3 + 3;
+print ab;
