@@ -1,7 +1,6 @@
 from parser import Parser
 from interpreter import Interpreter
 from scanner import Scanner
-from colorama import Fore, Style
 
 example_inputs = ["print 12 + 13;"]
 

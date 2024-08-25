@@ -11,10 +11,10 @@ class Environment():
     def assign(self, name, val):
         if name in self.values:
             self.values[name] = val
+            return val
         else:
             if self.enclosing:
                 self.enclosing.assign(name, val)
-            return 
             raise Exception(f"undefined variable: {name}")
 
 

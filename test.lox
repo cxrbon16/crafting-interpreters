@@ -1,7 +1,6 @@
-var ab = 15;
-var ac = "hello world!";
+var a;
+a = 12;
 {
-  ac = ab;
+  var a = a + 2;
+  print a;
 }
-ab = ac;
-print ab;

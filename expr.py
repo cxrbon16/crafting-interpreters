@@ -33,7 +33,7 @@ class Assignment(Expr):
 class Binary(Expr):
     def  __init__(self, left, right, operator: Token):
         self.left = left
-        self.right= right
+        self.right = right
         self.operator = operator
 
     def visit(self, interpreterC):

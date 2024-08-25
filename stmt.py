@@ -1,6 +1,3 @@
-import interpreter
-
-
 class Stmt():
     def __init__(self):
         pass

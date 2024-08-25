@@ -30,7 +30,9 @@ class Interpreter():
 
      
     def eval_varStmt(self, varStmt):
-        val = varStmt.expr.visit(self)
+        val = None
+        if varStmt.expr:
+            val = varStmt.expr.visit(self)
         self.env.define(varStmt.name, val)
 
     # expr funcs

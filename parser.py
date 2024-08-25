@@ -86,6 +86,8 @@ class Parser():
             stmts.append(self.declaration())
         self.consume(TokenType.RIGHT_BRACE)
         return stmts
+
+
     def print_statement(self):
         expr = self.expression()
         self.consume(TokenType.SEMICOLON)
