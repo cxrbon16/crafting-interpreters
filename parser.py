@@ -1,6 +1,6 @@
 from expr import Assignment, Binary, Literal, Unary, Variable
 from scanner import TokenType 
-from stmt import blockStmt, varStmt, printStmt, exprStmt
+from stmt import blockStmt, varStmt, printStmt, exprStmt, ifStmt
 
 
 
@@ -66,19 +66,38 @@ class Parser():
     def var_declaration(self):
         identifier = self.consume(TokenType.IDENTIFIER).lexeme
         initializer = None
+
         if (self.match([TokenType.EQUAL])):
            initializer = self.expression()
+
         self.consume(TokenType.SEMICOLON)
+
         return varStmt(identifier, initializer)
 
     def statement(self):
         if (self.match([TokenType.PRINT])):
             return self.print_statement()
+
         elif(self.match([TokenType.LEFT_BRACE])):
             return blockStmt(self.block_statement())
+
+        elif(self.match([TokenType.IF])):
+            params = self.if_statement()
+            return ifStmt(params[0], params[1], params[2])
+
         else:
             return self.expression_statement()
 
+
+    def if_statement(self):
+        condition = self.expression()
+        if_block = self.declaration()  
+        else_block = None
+
+        if(self.match([TokenType.ELSE])):
+            else_block = self.declaration()
+
+        return [condition, if_block, else_block] 
 
     def block_statement(self):
         stmts = []

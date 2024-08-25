@@ -16,12 +16,23 @@ class blockStmt():
 
     def evaluate(self, interpreterC):
         return interpreterC.eval_blockStmt(self)
+
+
 class exprStmt():
     def __init__(self, expression):
         self.expression = expression 
 
     def evaluate(self, interpreterC):
         interpreterC.eval_exprStmt(self)
+
+class ifStmt():
+    def __init__(self, condition, if_block, else_block):
+        self.condition = condition
+        self.if_block = if_block
+        self.else_block = else_block
+
+    def evaluate(self, interpreterC):
+        interpreterC.eval_ifStmt(self)
 
 
 class varStmt():

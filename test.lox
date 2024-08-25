@@ -1,6 +1,9 @@
-var a;
-a = 12;
-{
-  var a = a + 2;
-  print a;
-}
+var a = 10 < 5;
+
+if (12 > 10) {
+  if(1){ 
+    print("double true");
+  }else{
+    print("one true");
+  }
+} 

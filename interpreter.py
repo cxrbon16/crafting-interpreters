@@ -25,8 +25,19 @@ class Interpreter():
         for stmt in blockStmt.statements:
             stmt.evaluate(self)
         self.env = prev 
+
+
     def eval_exprStmt(self, exprStmt):
         return exprStmt.expression.visit(self)
+    
+    def eval_ifStmt(self, ifStmt):
+        cond = ifStmt.condition.visit(self)
+
+        if cond:
+            print("aslfkasfjasf")
+            ifStmt.if_block.evaluate(self)
+        elif ifStmt.else_block:
+            ifStmt.else_block.evaluate(self)
 
      
     def eval_varStmt(self, varStmt):
