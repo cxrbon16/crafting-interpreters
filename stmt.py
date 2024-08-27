@@ -34,6 +34,13 @@ class ifStmt():
     def evaluate(self, interpreterC):
         interpreterC.eval_ifStmt(self)
 
+class whileStmt():
+    def __init__(self, cond, block) -> None:
+        self.cond = cond
+        self.block = block
+
+    def evaluate(self, interpreterC):
+        interpreterC.eval_whileStmt(self)
 
 class varStmt():
     def __init__(self, name, expr):

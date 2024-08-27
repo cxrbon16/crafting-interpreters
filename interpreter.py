@@ -29,7 +29,15 @@ class Interpreter():
 
     def eval_exprStmt(self, exprStmt):
         return exprStmt.expression.visit(self)
-    
+   
+
+    def eval_whileStmt(self, whileStmt):
+        cond = whileStmt.cond.visit(self)
+
+        while(cond):
+            whileStmt.block.evaluate(self)
+            cond = whileStmt.cond.visit(self)
+
     def eval_ifStmt(self, ifStmt):
         cond = ifStmt.condition.visit(self)
 

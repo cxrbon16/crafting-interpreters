@@ -8,14 +8,14 @@ class Environment():
         self.values[name] = val
         return self.values
     
-    def assign(self, name, val):
+    def assign(self, name, val):  # recursion 
         if name in self.values:
             self.values[name] = val
             return val
         else:
             if self.enclosing:
-                self.enclosing.assign(name, val)
-            raise Exception(f"undefined variable: {name}")
+                return self.enclosing.assign(name, val)
+        raise Exception(f"undefined variable: {name}")
 
 
     def get(self, name):

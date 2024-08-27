@@ -2,5 +2,7 @@ var enes = 15;
 
 enes = 15 *3;
 
-
-if (enes and 13 > 19) print(enes / 8);
+while(enes < 50){
+  print(enes);
+  enes = enes + 1;
+}

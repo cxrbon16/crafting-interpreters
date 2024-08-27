@@ -1,6 +1,6 @@
 from expr import Assignment, Binary, Literal, Logical, Unary, Variable
 from scanner import TokenType 
-from stmt import blockStmt, varStmt, printStmt, exprStmt, ifStmt
+from stmt import blockStmt, varStmt, printStmt, exprStmt, ifStmt, whileStmt
 
 
 
@@ -85,9 +85,18 @@ class Parser():
             params = self.if_statement()
             return ifStmt(params[0], params[1], params[2])
 
+        elif(self.match([TokenType.WHILE])):
+            params = self.while_statement()
+            return whileStmt(params[0], params[1])
+
         else:
             return self.expression_statement()
 
+    def while_statement(self):
+        cond = self.expression()
+        block = self.declaration() 
+
+        return [cond, block]
 
     def if_statement(self):
         condition = self.expression()
