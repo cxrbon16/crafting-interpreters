@@ -1,11 +1,8 @@
 from scanner import Token 
-import interpreter
 
 class Expr():
     def __init__(self):
         pass
-
-
 
 def paranthesize(exprs):
     res = "( "
@@ -38,6 +35,16 @@ class Binary(Expr):
 
     def visit(self, interpreterC):
        return interpreterC.visitBinary(self) 
+
+class Logical(Expr):
+    def __init__(self, left, right, operator) -> None:
+        self.left = left
+        self.right = right
+        self.operator = operator
+
+    def visit(self, interpreterC):
+        return interpreterC.visitLogical(self)
+
 
 class Unary(Expr):
     def __init__(self, operator: Token, expr):

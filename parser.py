@@ -1,4 +1,4 @@
-from expr import Assignment, Binary, Literal, Unary, Variable
+from expr import Assignment, Binary, Literal, Logical, Unary, Variable
 from scanner import TokenType 
 from stmt import blockStmt, varStmt, printStmt, exprStmt, ifStmt
 
@@ -123,7 +123,7 @@ class Parser():
         return self.assignment()
 
     def assignment(self):
-        expr = self.equality()
+        expr = self.logical_or()
         if (self.match([TokenType.EQUAL])):
             val = self.assignment()
             if (isinstance(expr, Variable)):
@@ -131,6 +131,27 @@ class Parser():
                return Assignment(name, val)
 
         return expr
+    def logical_or(self):
+        left = self.logical_and()
+
+        while self.match([TokenType.OR]):
+            operator = self.token_list[self.current - 1]
+            right = self.logical_and()
+            left = Logical(left, right, operator)
+
+        return left
+
+    def logical_and(self):
+        left = self.equality()
+
+        while(self.match([TokenType.AND])):
+            operator = self.token_list[self.current - 1]
+            right = self.equality()
+            left = Logical(left, right, operator)
+
+        return left
+
+
 
     def equality(self):
 

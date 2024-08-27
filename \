@@ -76,19 +76,6 @@ class Interpreter():
             return None 
 
 
-    def visitLogical(self, logicalExpr):
-        left = logicalExpr.left.visit(self)
-
-        if logicalExpr.operator.type == TokenType.OR:
-            if left:
-                return left
-        else:
-            if not left:
-                return left
-
-        return logicalExpr.right.visit(self)
-
-
     def visitBinary(self, binaryExpr):
             left = binaryExpr.left.visit(self)
             right = binaryExpr.right.visit(self)

@@ -1,9 +1,6 @@
-var a = 10 < 5;
+var enes = 15; 
 
-if (12 > 10) {
-  if(1){ 
-    print("double true");
-  }else{
-    print("one true");
-  }
-} 
+enes = 15 *3;
+
+
+if (enes and 13 > 19) print(enes / 8);
