@@ -38,11 +38,18 @@ class Interpreter():
             whileStmt.block.evaluate(self)
             cond = whileStmt.cond.visit(self)
 
+    def eval_forStmt(self, forStmt):
+        forStmt.dec.evaluate(self)
+        cond = forStmt.cond.visit(self)
+        while(cond):
+            forStmt.block.evaluate(self)
+            forStmt.stmt.visit(self)
+            cond = forStmt.cond.visit(self)
+            
     def eval_ifStmt(self, ifStmt):
         cond = ifStmt.condition.visit(self)
 
         if cond:
-            print("")
             ifStmt.if_block.evaluate(self)
         elif ifStmt.else_block:
             ifStmt.else_block.evaluate(self)
@@ -119,6 +126,9 @@ class Interpreter():
                         return left * right 
                     elif(isinstance(left, int) and isinstance(right, str)):
                         return left * right 
+
+                case(TokenType.PERCENT):
+                    return left % right
 
                 case(TokenType.SLASH):
                     return left / right

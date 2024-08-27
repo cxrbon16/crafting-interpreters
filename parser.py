@@ -1,6 +1,6 @@
 from expr import Assignment, Binary, Literal, Logical, Unary, Variable
 from scanner import TokenType 
-from stmt import blockStmt, varStmt, printStmt, exprStmt, ifStmt, whileStmt
+from stmt import blockStmt, varStmt, printStmt, exprStmt, ifStmt, whileStmt, forStmt
 
 
 
@@ -89,6 +89,10 @@ class Parser():
             params = self.while_statement()
             return whileStmt(params[0], params[1])
 
+        elif(self.match([TokenType.FOR])):
+            params = self.for_statement()
+            return forStmt(params[0], params[1], params[2], params[3])
+
         else:
             return self.expression_statement()
 
@@ -97,6 +101,24 @@ class Parser():
         block = self.declaration() 
 
         return [cond, block]
+
+    def for_statement(self):
+        self.consume(TokenType.LEFT_PAREN)
+
+        dec = self.declaration()
+
+        cond = self.expression()
+
+        self.consume(TokenType.SEMICOLON)
+
+        stmt = self.expression()
+
+        self.consume(TokenType.RIGHT_PAREN)
+
+        block = self.statement()
+        
+        return [dec, cond, stmt, block]
+
 
     def if_statement(self):
         condition = self.expression()
@@ -193,7 +215,7 @@ class Parser():
     def factor(self):
         expr = self.unary()
         
-        while(self.match([TokenType.SLASH, TokenType.STAR])):
+        while(self.match([TokenType.SLASH, TokenType.STAR, TokenType.PERCENT])):
             operator = self.token_list[self.current - 1]
             right = self.unary()
             expr = Binary(expr, right, operator)

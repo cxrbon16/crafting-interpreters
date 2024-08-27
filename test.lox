@@ -1,8 +1,12 @@
-var enes = 15; 
+var flag = false;
 
-enes = 15 *3;
 
-while(enes < 50){
-  print(enes);
-  enes = enes + 1;
+for(var i = 2; i < 100; i = i + 1) {
+  flag = false;
+  for(var j = 2; j < i; j = j + 1) {
+     if (i % j == 0) flag = true;
+  }
+  if (!flag) {
+    print(i);
+  }
 }

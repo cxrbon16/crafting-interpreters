@@ -42,6 +42,17 @@ class whileStmt():
     def evaluate(self, interpreterC):
         interpreterC.eval_whileStmt(self)
 
+class forStmt():
+    def __init__(self, dec, cond, stmt, block):
+        self.dec = dec
+        self.cond = cond 
+        self.stmt = stmt
+        self.block = block
+
+    def evaluate(self, interpreterC):
+        interpreterC.eval_forStmt(self)
+
+
 class varStmt():
     def __init__(self, name, expr):
         self.name = name

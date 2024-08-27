@@ -42,6 +42,7 @@ class TokenType(Enum):
     VAR = 38
     WHILE = 39
     EOF = 40
+    PERCENT = 41
 
 
 
@@ -62,6 +63,7 @@ t_to_c = {
     TokenType.PLUS: '+',
     TokenType.STAR: '*',
     TokenType.SLASH: '/',
+    TokenType.PERCENT: '%',
     TokenType.SEMICOLON: ';',
     TokenType.EQUAL: '=',
     TokenType.EQUAL_EQUAL: '==',
