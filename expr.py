@@ -68,3 +68,11 @@ class Literal(Expr):
     def visit(self, interpreterC):
         return interpreterC.visitLiteral(self)
 
+class Call(Expr):
+    def __init__(self, callee, arguments):
+        self.callee = callee
+        self.arguments = arguments
+
+    def visit(self, interpreterC):
+        interpreterC.visitCall(self)
+

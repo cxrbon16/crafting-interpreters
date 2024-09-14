@@ -1,7 +1,6 @@
 from environment import Environment
 from scanner import TokenType
 
-
 class Interpreter():
     def __init__(self, stmt_list):
         self.stmt_list = stmt_list
@@ -51,14 +50,17 @@ class Interpreter():
 
         if cond:
             ifStmt.if_block.evaluate(self)
+
         elif ifStmt.else_block:
             ifStmt.else_block.evaluate(self)
 
      
     def eval_varStmt(self, varStmt):
         val = None
+        
         if varStmt.expr:
             val = varStmt.expr.visit(self)
+
         self.env.define(varStmt.name, val)
 
     # expr funcs
@@ -89,6 +91,7 @@ class Interpreter():
                     if right is not None:
                         return not isTrue(right) 
             return None 
+
 
 
     def visitLogical(self, logicalExpr):
@@ -150,6 +153,16 @@ class Interpreter():
 
                 case(TokenType.LESS_EQUAL):
                     return left <= right
+
+    def visitCall(self, callExpr):
+
+        args = callExpr.arguments 
+
+        for arg in callExpr.arguments:
+            args.append(arg.visit(self))
+        callee = callExpr.callee.visit(self)
+
+
 
     def visitGrouping(self, groupingExpr):
         return groupingExpr.expr.visit(self)

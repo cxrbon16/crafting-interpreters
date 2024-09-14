@@ -1,16 +1,13 @@
-from expr import Assignment, Binary, Literal, Logical, Unary, Variable
+from expr import Assignment, Binary, Literal, Logical, Unary, Variable, Call
 from scanner import TokenType 
 from stmt import blockStmt, varStmt, printStmt, exprStmt, ifStmt, whileStmt, forStmt
-
-
-
 
 class Parser():
     def __init__(self, token_list):
         self.token_list = token_list
         self.current = 0
 
-# start: util functions 
+    # start: util functions 
             
     def match(self, types):
         for t in types:
@@ -40,7 +37,7 @@ class Parser():
         self.advance()
         raise Exception("We have an error")
 
-# end: util functions
+    # end: util functions
 
     def parse(self):
         # return a list of declaration:
@@ -103,16 +100,12 @@ class Parser():
         return [cond, block]
 
     def for_statement(self):
+
         self.consume(TokenType.LEFT_PAREN)
-
         dec = self.declaration()
-
         cond = self.expression()
-
         self.consume(TokenType.SEMICOLON)
-
         stmt = self.expression()
-
         self.consume(TokenType.RIGHT_PAREN)
 
         block = self.statement()
@@ -148,7 +141,7 @@ class Parser():
         self.consume(TokenType.SEMICOLON)
         return exprStmt(expr)
 
-#expressions
+    #expressions
 
     def expression(self):
         return self.assignment()
@@ -162,6 +155,7 @@ class Parser():
                return Assignment(name, val)
 
         return expr
+
     def logical_or(self):
         left = self.logical_and()
 
@@ -227,7 +221,29 @@ class Parser():
             right = self.unary()
             return Unary(operator, right)
             
-        return self.primary()
+        return self.call()
+
+    def finish_call(self, expr):
+
+        args = []
+
+        if(not self.match([TokenType.RIGHT_PAREN])):
+            while(self.match([TokenType.COMMA])):
+                args.append(self.token_list[self.current])
+                self.current = self.current + 1
+
+        return Call(expr, args)
+
+    def call(self):
+        expr = self.primary()
+        
+        while(True):
+            if(self.match([TokenType.LEFT_PAREN])):
+                expr = self.finish_call(expr)
+            else:
+                break
+
+        return expr
 
     def primary(self):
         if self.match([TokenType.FALSE]):
